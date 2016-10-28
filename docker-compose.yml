@@ -1,0 +1,8 @@
+version: "2"
+services:
+  pictureweb-mongo:
+    image: mongo
+    ports:
+     - "27017"
+    volumes:
+     - /tmp/mongo2:/data/db
