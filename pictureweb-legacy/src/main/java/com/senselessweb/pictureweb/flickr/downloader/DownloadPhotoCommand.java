@@ -18,7 +18,7 @@ import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 import com.netflix.hystrix.HystrixThreadPoolProperties;
-import com.senselessweb.pictureweb.flickr.authentication.FlickrAuthService;
+import com.senselessweb.pictureweb.flickr.FlickrAuthService;
 import com.senselessweb.pictureweb.flickr.authentication.FlickrProvider;
 
 public class DownloadPhotoCommand extends HystrixCommand<Void> {
