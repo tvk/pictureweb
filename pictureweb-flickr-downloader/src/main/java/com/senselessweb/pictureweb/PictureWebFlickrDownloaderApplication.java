@@ -1,18 +1,22 @@
-package com.senselessweb.pictureweb.fetcher;
+package com.senselessweb.pictureweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @SpringBootApplication
 @EnableScheduling
-public class PictureWebFlickrFetchApplication {
+@EnableHystrix
+@EnableMongoRepositories
+public class PictureWebFlickrDownloaderApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(PictureWebFlickrFetchApplication.class, args);
+    SpringApplication.run(PictureWebFlickrDownloaderApplication.class, args);
   }
 
   @Bean

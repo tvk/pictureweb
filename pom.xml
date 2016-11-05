@@ -20,6 +20,7 @@
     <module>pictureweb-web</module>
     <module>pictureweb-datastore</module>
     <module>pictureweb-flickr-downloader</module>
+    <module>pictureweb-commons</module>
   </modules>
 
   <properties>
@@ -59,11 +60,6 @@
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
       <version>1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.netflix.hystrix</groupId>
-      <artifactId>hystrix-core</artifactId>
-      <version>1.5.6</version>
     </dependency>
     <dependency>
       <groupId>commons-httpclient</groupId>

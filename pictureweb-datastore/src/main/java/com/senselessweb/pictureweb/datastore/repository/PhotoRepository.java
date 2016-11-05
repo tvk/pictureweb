@@ -8,5 +8,5 @@ import com.senselessweb.pictureweb.datastore.domain.StoredPhoto;
 
 public interface PhotoRepository extends MongoRepository<StoredPhoto, String> {
 
-  List<StoredPhoto> findByCompleteFalse();
+  List<StoredPhoto> findByIncompleteTrue();
 }

@@ -14,7 +14,7 @@ public class StoredPhoto {
   private final StoredGeoData geoData;
   private final Date lastUpdate;
   private final List<StoredTag> tags;
-  private boolean complete = false;
+  private boolean incomplete = true;
 
   public StoredPhoto(String id, String title, String description, StoredGeoData geoData, Date lastUpdate, final List<StoredTag> tags) {
     this.id = id;
@@ -49,12 +49,12 @@ public class StoredPhoto {
     return tags;
   }
 
-  public boolean isComplete() {
-    return complete;
+  public boolean isIncomplete() {
+    return incomplete;
   }
 
-  public void setComplete(boolean complete) {
-    this.complete = complete;
+  public void setIncomplete(boolean incomplete) {
+    this.incomplete = incomplete;
   }
 
   /*
