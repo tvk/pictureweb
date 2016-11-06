@@ -2,7 +2,34 @@ version: "2"
 services:
   pictureweb-mongo:
     image: mongo
-    ports:
-     - "27017"
+    env_file:
+     - .env
     volumes:
-     - /tmp/mongo2:/data/db
+     - "${pictureweb_storage}/db:/data/db"
+  pictureweb-web:
+    image: tvvk/pictureweb-web
+    links:
+     - "pictureweb-mongo"    
+    ports:
+     - "8080:8080"
+    env_file:
+     - .env
+    volumes:
+     - "${pictureweb_storage}/images:/data/storage"
+  pictureweb-flickr-fetcher:
+    image: tvvk/pictureweb-flickr-fetcher
+    links:
+     - "pictureweb-mongo"    
+    volumes:
+     - "${pictureweb_storage}/images:/data/storage"
+    env_file:
+     - .env
+  pictureweb-flickr-downloader:
+    image: tvvk/pictureweb-flickr-downloader
+    links:
+     - "pictureweb-mongo"    
+    env_file:
+     - .env
+    volumes:
+     - "${pictureweb_storage}/images:/data/storage"
+

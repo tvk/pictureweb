@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class StoredPhotos {
 
-  private final File storageBase = new File("/home/thomas/development/java/picture-web/data/"); // TODO
+  private final File storageBase = new File("/data/storage/"); // TODO
   private final File storageOriginals = new File(storageBase, "originals");
   private final File storageGenerated = new File(storageBase, "generated");
+
+  public StoredPhotos() {
+    // TODO Auto-generated constructor stub
+  }
 
   public File getOriginal(final String photoId) {
     final File location = new File(storageOriginals, StringUtils.substring(photoId, 0, 5) + File.separator);

@@ -104,6 +104,7 @@
                 <include>${project.build.finalName}.jar</include>
               </resource>
             </resources>
+            <serverId>docker-hub</serverId>
             <skipDockerBuild>true</skipDockerBuild>
           </configuration>
         </plugin>
