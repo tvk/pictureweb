@@ -6,6 +6,7 @@
     <groupId>com.senselessweb.pictureweb</groupId>
     <artifactId>pictureweb-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath>..</relativePath>
   </parent>
   <artifactId>pictureweb-commons</artifactId>
   <dependencies>
