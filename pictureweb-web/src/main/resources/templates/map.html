@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="include/layout">
+<body>
+
+  <div layout:fragment="content" class="page-map">
+
+    <div id="map" style="margin: 10px; height: 600px"></div>
+
+    <script type="text/javascript" th:inline="javascript">
+		var map;
+		var albums = [[${@albums.getAlbumsWithGeo()}]];
+		
+		function initMap() {
+			map = new google.maps.Map(document.getElementById('map'), {
+				center : {
+					lat : 20,
+					lng : 0
+				},
+				mapTypeId : 'satellite',
+				zoom : 3
+			});
+			albums.forEach(function(album) {
+				var marker = new google.maps.Marker({
+					position : {
+						lat : album.geo.lat,
+						lng : album.geo.lng
+					},
+					map : map,
+					title : album.title
+				});
+		        var infowindow = new google.maps.InfoWindow({
+		          content: '<a class="infoWindow" href="' + album.link + '">' + album.title + '</a>'
+		        });
+		        marker.addListener('click', function() {
+		          infowindow.open(map, marker);
+		        });
+			});
+		}
+	</script>
+    <script th:src="${@googleMapsJsUrl}" async="async" defer="defer"></script>
+
+  </div>
+</body>
+</html>

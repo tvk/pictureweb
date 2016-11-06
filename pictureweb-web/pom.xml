@@ -24,6 +24,15 @@
       <artifactId>pictureweb-flickr-commons</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>nz.net.ultraq.thymeleaf</groupId>
+      <artifactId>thymeleaf-layout-dialect</artifactId>
+      <version>1.2.1</version>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>

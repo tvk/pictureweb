@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <title>Pictureweb - Photos &amp; Development Blog</title>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.poptrox.min.js"></script>
+  <script src="assets/js/skel.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <link rel="stylesheet" href="/assets/css/main.css"></link>
+  <link rel="stylesheet" href="/assets/css/custom.css"></link>
+</head>
+
+<body>
+
+  <div class="mainMenu">
+    <h1><a href="/">Start</a></h1>
+    <h1><a href="/albums">Albums</a></h1>
+    <h1><a href="/map">Map</a></h1>
+    <h1><a href="/blog">Blog</a></h1>
+  </div>
+  
+  <div style="clear:both;"></div>
+  
+  <div layout:fragment="content"></div>
+
+</body>
+
+</html>

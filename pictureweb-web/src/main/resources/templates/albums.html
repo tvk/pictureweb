@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="include/layout">
+<body>
+
+  <div layout:fragment="content" class="page-album">
+  
+    <div th:each="album : ${albums}">
+      <a th:href="${album.link}" href="#" th:text="${album.title}">Album title</a>
+    </div>
+  
+  </div>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.senselessweb.pictureweb.commons.storage;
 
 import java.io.File;
+import java.net.URI;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,10 @@ public class StoredPhotos {
       location.mkdirs();
     }
     return new File(location, photoId + "@" + prefix + ".jpg");
+  }
+
+  public URI getGeneratedLocation() {
+    return storageGenerated.toURI();
   }
 
 }

@@ -1,0 +1,17 @@
+
+.mainMenu {
+	text-align: center;
+}
+
+.mainMenu h1 {
+	float: left;
+	margin: 15px;
+}
+
+.page-album h1 {
+	text-align: center;
+} 
+
+.page-map .infoWindow {
+	color: #111B34;
+} 
