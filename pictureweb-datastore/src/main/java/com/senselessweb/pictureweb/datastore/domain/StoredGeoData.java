@@ -1,6 +1,6 @@
 package com.senselessweb.pictureweb.datastore.domain;
 
-import com.senselessweb.java.utils.ExtPreconditions;
+import com.senselessweb.pictureweb.commons.util.ExtPreconditions;
 
 public class StoredGeoData {
 

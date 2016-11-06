@@ -1,11 +1,15 @@
 version: "2"
 services:
+
+  # Database
   pictureweb-mongo:
     image: mongo
     env_file:
      - .env
     volumes:
      - "${pictureweb_storage}/db:/data/db"
+     
+  # Services 
   pictureweb-web:
     image: tvvk/pictureweb-web
     links:
@@ -32,4 +36,16 @@ services:
      - .env
     volumes:
      - "${pictureweb_storage}/images:/data/storage"
+     
+  # CI
+  pictureweb-jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile-jenkins
+    ports:
+     - "8081:8080"
+     - "50000:50000"
+    volumes:
+     - "${pictureweb_storage}/jenkins:/var/jenkins_home"
+     - /var/run/docker.sock:/var/run/docker.sock
 

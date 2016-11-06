@@ -49,11 +49,6 @@
       <version>14.0.1</version>
     </dependency>
     <dependency>
-      <groupId>com.senselessweb.java</groupId>
-      <artifactId>java-utils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
@@ -81,6 +76,11 @@
       <groupId>io.reactivex</groupId>
       <artifactId>rxjava-async-util</artifactId>
       <version>0.21.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.5</version>
     </dependency>
   </dependencies>
 

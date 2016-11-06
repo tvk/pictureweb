@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.REST;
-import com.senselessweb.java.utils.ExtPreconditions;
+import com.senselessweb.pictureweb.commons.util.ExtPreconditions;
 
 @Service
 public class FlickrFactory {
