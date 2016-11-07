@@ -1,7 +1,9 @@
 package com.senselessweb.pictureweb.web.service;
 
+import java.io.File;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
@@ -20,9 +22,13 @@ public class PhotoConverter implements Function<StoredPhoto, ClientPhoto> {
 
   @Override
   public ClientPhoto apply(final StoredPhoto picture) {
-    return picture == null ? null : new ClientPhoto(picture.getTitle(), picture.getDescription(), picture.getGeo(),
-        storedPhotos.getLarge(picture.getId()), storedPhotos.getMedium(picture.getId()),
-        storedPhotos.getSmall(picture.getId()));
+    return picture == null ? null
+        : new ClientPhoto(picture.getTitle(), picture.getDescription(), picture.getGeo(), generateImageUri(storedPhotos.getLarge(picture.getId())),
+            generateImageUri(storedPhotos.getMedium(picture.getId())), generateImageUri(storedPhotos.getSmall(picture.getId())));
+  }
+
+  private String generateImageUri(final File file) {
+    return "/photos" + StringUtils.prependIfMissing(storedPhotos.getGeneratedLocation().relativize(file.toURI()).toASCIIString(), "/");
   }
 
 }

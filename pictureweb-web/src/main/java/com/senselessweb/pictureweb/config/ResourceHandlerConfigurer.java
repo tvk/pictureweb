@@ -21,7 +21,6 @@ public class ResourceHandlerConfigurer extends WebMvcConfigurerAdapter {
 
     registry.addResourceHandler("/assets/**").addResourceLocations("classpath:assets/");
     registry.addResourceHandler("/images/**").addResourceLocations("classpath:images/");
-    registry.addResourceHandler("/pictures/**").addResourceLocations(storedPhotos.getGeneratedLocation().toString());
+    registry.addResourceHandler("/photos/**").addResourceLocations(storedPhotos.getGeneratedLocation().toString());
   }
-
 }

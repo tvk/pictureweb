@@ -1,8 +1,8 @@
 package com.senselessweb.pictureweb.web.service;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -32,8 +32,7 @@ public class AlbumConverter implements Function<StoredAlbum, ClientAlbum> {
   }
 
   private Collection<ClientPhoto> convertPictures(StoredAlbum album) {
-    // TODO
-    return Collections.emptyList();
+    return album.getPhotos().stream().map(p -> convertPicture(p)).collect(Collectors.toList());
   }
 
   private ClientGeoData findGeoData(final StoredAlbum album) {

@@ -1,7 +1,5 @@
 package com.senselessweb.pictureweb.web.domain;
 
-import java.io.File;
-
 import com.senselessweb.pictureweb.datastore.domain.StoredGeoData;
 
 public class ClientPhoto {
@@ -9,11 +7,12 @@ public class ClientPhoto {
   private final String title;
   private final String description;
   private final StoredGeoData geo;
-  private final File large;
-  private final File medium;
-  private final File small;
+  private final String large;
+  private final String medium;
+  private final String small;
 
-  public ClientPhoto(String title, String description, StoredGeoData geo, File large, File medium, File small) {
+  public ClientPhoto(final String title, final String description, final StoredGeoData geo,
+      final String large, final String medium, final String small) {
     this.title = title;
     this.description = description;
     this.geo = geo;
@@ -35,15 +34,15 @@ public class ClientPhoto {
   }
 
   public String getLarge() {
-    return large.getName();
+    return large;
   }
 
   public String getMedium() {
-    return medium.getName();
+    return medium;
   }
 
   public String getSmall() {
-    return small.getName();
+    return small;
   }
 
 }
