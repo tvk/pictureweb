@@ -15,15 +15,21 @@ import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.photos.Photo;
 import com.flickr4java.flickr.photos.Size;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.command.AsyncResult;
 import com.senselessweb.pictureweb.commons.storage.StoredPhotos;
 import com.senselessweb.pictureweb.flickr.AuthenticatedFlickrProvider;
 
 @Service
+@DefaultProperties(
+      commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "600000"),
+      threadPoolProperties = {
+          @HystrixProperty(name = "maxQueueSize", value = "100000"),
+          @HystrixProperty(name = "coreSize", value = "3"),
+          @HystrixProperty(name = "queueSizeRejectionThreshold", value = "100000")
+      })
 public class AsyncDownloader {
-
-  private static final String TEN_MINUTES = "600000";
 
   private static final Log log = LogFactory.getLog(AsyncDownloader.class);
   private final AuthenticatedFlickrProvider flickr;
@@ -35,49 +41,25 @@ public class AsyncDownloader {
   }
 
   @Async
-  @HystrixCommand(threadPoolKey = "downloadOriginal",
-      commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = TEN_MINUTES),
-      threadPoolProperties = {
-          @HystrixProperty(name = "maxQueueSize", value = "100000"),
-          @HystrixProperty(name = "coreSize", value = "3"),
-          @HystrixProperty(name = "queueSizeRejectionThreshold", value = "100000")
-      })
+  @HystrixCommand(threadPoolKey = "downloadOriginal")
   public Future<File> downloadOriginal(final Photo photo) {
     return download(photo, Size.ORIGINAL, storageService.getOriginal(photo.getId()));
   }
 
   @Async
-  @HystrixCommand(threadPoolKey = "downloadSmall",
-      commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = TEN_MINUTES),
-      threadPoolProperties = {
-          @HystrixProperty(name = "maxQueueSize", value = "100000"),
-          @HystrixProperty(name = "coreSize", value = "30"),
-          @HystrixProperty(name = "queueSizeRejectionThreshold", value = "100000")
-      })
+  @HystrixCommand(threadPoolKey = "downloadSmall")
   public Future<File> downloadSmall(final Photo photo) {
     return download(photo, Size.SMALL, storageService.getSmall(photo.getId()));
   }
 
   @Async
-  @HystrixCommand(threadPoolKey = "downloadMedium",
-      commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = TEN_MINUTES),
-      threadPoolProperties = {
-          @HystrixProperty(name = "maxQueueSize", value = "100000"),
-          @HystrixProperty(name = "coreSize", value = "30"),
-          @HystrixProperty(name = "queueSizeRejectionThreshold", value = "100000")
-      })
+  @HystrixCommand(threadPoolKey = "downloadMedium")
   public Future<File> downloadMedium(final Photo photo) {
     return download(photo, Size.MEDIUM, storageService.getMedium(photo.getId()));
   }
 
   @Async
-  @HystrixCommand(threadPoolKey = "downloadLarge",
-      commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = TEN_MINUTES),
-      threadPoolProperties = {
-          @HystrixProperty(name = "maxQueueSize", value = "100000"),
-          @HystrixProperty(name = "coreSize", value = "30"),
-          @HystrixProperty(name = "queueSizeRejectionThreshold", value = "100000")
-      })
+  @HystrixCommand(threadPoolKey = "downloadLarge")
   public Future<File> downloadLarge(final Photo photo) {
     return download(photo, Size.LARGE_1600, storageService.getLarge(photo.getId()));
   }
