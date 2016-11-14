@@ -8,10 +8,19 @@
 	margin: 15px;
 }
 
-.page-album h1 {
+.page-home h1.title {
 	text-align: center;
+	font-size: 3em;
+	margin-left: 9px;
+	letter-spacing: 1em;
 } 
 
-.page-map .infoWindow {
+.page-album h1.title {
+	text-align: center;
+	font-size: 3em;
+	margin: 0;
+} 
+
+.page-map .infoWindow h2 {
 	color: #111B34;
 } 

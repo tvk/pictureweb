@@ -30,7 +30,11 @@
 					title : album.title
 				});
 		        var infowindow = new google.maps.InfoWindow({
-		          content: '<a class="infoWindow" href="' + album.link + '">' + album.title + '</a>'
+		          content: 
+		        	  '<a class="infoWindow" href="' + album.link + '">' +
+		        		'<h2>' + album.title + '</h2>' +
+		        		'<img src="' + album.primaryPhoto.small + '"></img>' +
+		        	  '</a>'
 		        });
 		        marker.addListener('click', function() {
 		          infowindow.open(map, marker);

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
+import com.google.common.collect.Lists;
+
 public class StoredPhoto {
 
   @Id
@@ -14,15 +16,17 @@ public class StoredPhoto {
   private final StoredGeoData geoData;
   private final Date lastUpdate;
   private final List<StoredTag> tags;
-  private boolean incomplete = true;
+  private final List<StoredExif> exif;
 
-  public StoredPhoto(String id, String title, String description, StoredGeoData geoData, Date lastUpdate, final List<StoredTag> tags) {
+  public StoredPhoto(String id, String title, String description, StoredGeoData geoData, Date lastUpdate, final List<StoredTag> tags,
+      final List<StoredExif> exif) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.geoData = geoData;
     this.lastUpdate = lastUpdate;
     this.tags = tags;
+    this.exif = exif;
   }
 
   public String getId() {
@@ -49,16 +53,7 @@ public class StoredPhoto {
     return tags;
   }
 
-  public boolean isIncomplete() {
-    return incomplete;
+  public List<StoredExif> getExif() {
+    return Lists.newArrayList(exif);
   }
-
-  public void setIncomplete(boolean incomplete) {
-    this.incomplete = incomplete;
-  }
-
-  /*
-   * public Collection<Exif> getExif() { return exif; }
-   */
-
 }

@@ -1,5 +1,6 @@
 package com.senselessweb.pictureweb.fetcher.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.FlickrException;
+import com.flickr4java.flickr.photos.Exif;
 import com.flickr4java.flickr.photos.Photo;
 import com.flickr4java.flickr.photos.PhotoList;
 import com.google.common.collect.Sets;
+import com.senselessweb.pictureweb.datastore.domain.StoredExif;
 import com.senselessweb.pictureweb.datastore.domain.StoredGeoData;
 import com.senselessweb.pictureweb.datastore.domain.StoredPhoto;
 import com.senselessweb.pictureweb.datastore.domain.StoredTag;
@@ -37,33 +40,37 @@ public class PhotoFetcher extends AbstractFetcher {
   }
 
   private void doFetch(final Flickr flickr, final String userId, final int page) throws FlickrException {
-    log.debug("Fetching albums");
-    final PhotoList<Photo> photos = flickr.getPeopleInterface().getPhotos(userId, null, null, null,
-        null, null, null, null, extra, 500, page);
-    photos.forEach(p -> storePhoto(p));
+    log.debug("Fetching photos");
+    final PhotoList<Photo> photos = flickr.getPeopleInterface().getPhotos(userId, null, null, null, null, null, null, null, extra, 500, page);
+    photos.forEach(p -> storePhoto(flickr, p));
     if (photos.getPage() < photos.getPages()) {
       doFetch(flickr, userId, page + 1);
     }
   }
 
-  private void storePhoto(final Photo photo) {
-
-    final StoredPhoto stored = this.photoRepository.findOne(photo.getId());
-    if (stored == null || stored.getLastUpdate().before(photo.getLastUpdate())) {
-      photoRepository.save(toStoredPhoto(photo));
+  private void storePhoto(final Flickr flickr, final Photo photo) {
+    try {
+      final StoredPhoto stored = this.photoRepository.findOne(photo.getId());
+      if (stored == null || stored.getLastUpdate().before(photo.getLastUpdate())) {
+        final Collection<Exif> exif = flickr.getPhotosInterface().getExif(photo.getId(), photo.getSecret());
+        photoRepository.save(toStoredPhoto(photo, exif));
+      }
+    } catch (final FlickrException e) {
+      log.error("Could not store photo", e);
     }
   }
 
-  private StoredPhoto toStoredPhoto(final Photo photo) {
+  private StoredPhoto toStoredPhoto(final Photo photo, final Collection<Exif> exif) {
 
-    final StoredGeoData geodata = photo.getGeoData() != null ? new StoredGeoData(
-        String.valueOf(photo.getGeoData().getLatitude()),
-        String.valueOf(photo.getGeoData().getLongitude())) : null;
+    final List<StoredExif> storedExif = exif.stream().map(e -> new StoredExif(e.getTag(), e.getTagspace(), e.getRaw(), e.getClean()))
+        .collect(Collectors.toList());
 
-    final List<StoredTag> tags = photo.getTags().stream()
-        .map(t -> new StoredTag(t.getId(), t.getValue(), t.getRaw())).collect(Collectors.toList());
+    final StoredGeoData geodata = photo.getGeoData() != null
+        ? new StoredGeoData(String.valueOf(photo.getGeoData().getLatitude()), String.valueOf(photo.getGeoData().getLongitude())) : null;
 
-    return new StoredPhoto(photo.getId(), photo.getTitle(), photo.getDescription(), geodata, photo.getLastUpdate(), tags);
+    final List<StoredTag> tags = photo.getTags().stream().map(t -> new StoredTag(t.getId(), t.getValue(), t.getRaw())).collect(Collectors.toList());
+
+    return new StoredPhoto(photo.getId(), photo.getTitle(), photo.getDescription(), geodata, photo.getLastUpdate(), tags, storedExif);
   }
 
 }

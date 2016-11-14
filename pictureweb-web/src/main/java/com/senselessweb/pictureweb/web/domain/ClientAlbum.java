@@ -8,15 +8,18 @@ public class ClientAlbum {
   private final String title;
   private final String description;
   private final ClientPhoto primaryPhoto;
+  private final boolean primaryPhotoIsComplete;
   private final ClientGeoData geo;
   private final Collection<ClientPhoto> photos;
 
-  public ClientAlbum(final String id, final String title, final String description, final ClientPhoto primaryPhoto,
+  public ClientAlbum(final String id, final String title, final String description, 
+      final ClientPhoto primaryPhoto, final boolean primaryPhotoIsComplete,
       final ClientGeoData geo, final Collection<ClientPhoto> photos) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.primaryPhoto = primaryPhoto;
+    this.primaryPhotoIsComplete = primaryPhotoIsComplete;
     this.geo = geo;
     this.photos = photos;
   }
@@ -35,6 +38,10 @@ public class ClientAlbum {
 
   public ClientGeoData getGeo() {
     return geo;
+  }
+  
+  public boolean isPrimaryPhotoIsComplete() {
+    return primaryPhotoIsComplete;
   }
 
   public Collection<ClientPhoto> getPhotos() {

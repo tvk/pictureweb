@@ -5,23 +5,29 @@
 
   <div layout:fragment="content" class="page-album">
   
-    <h1 th:text="${album.title}"></h1>
+    <h1 class="title" th:text="${album.title}"></h1>
 
     <section class="thumbnails lightbox">
-      <div style="margin-top: 30px;">
-        <a th:each="photo,status : ${album.photos}" th:href="${photo.large}" href="/images/fulls/01.jpg" th:if="${status.index % 3 == 0}">
+      <div style="margin-top: 10px;">
+        <a th:each="photo,status : ${album.photos}" th:href="${photo.large}" href="/images/fulls/01.jpg" th:if="${status.index % 4 == 0}">
           <img th:src="${photo.small}" src="/images/thumbs/01.jpg" alt="" />
           <h3 th:text="${photo.title}">Lorem ipsum dolor sit amet1</h3>
         </a>
       </div>
-      <div>
-        <a th:each="photo,status : ${album.photos}" th:href="${photo.large}" href="/images/fulls/01.jpg" th:if="${status.index % 3 == 1}">
+      <div style="margin-top: 35px;">
+        <a th:each="photo,status : ${album.photos}" th:href="${photo.large}" href="/images/fulls/01.jpg" th:if="${status.index % 4 == 1}">
           <img th:src="${photo.small}" src="/images/thumbs/01.jpg" alt="" />
           <h3 th:text="${photo.title}">Lorem ipsum dolor sit amet1</h3>
         </a>
       </div>
-      <div style="margin-top: 15px;">
-        <a th:each="photo,status : ${album.photos}" th:href="${photo.large}" href="/images/fulls/01.jpg" th:if="${status.index % 3 == 2}">
+      <div style="margin-top: 35px;">
+        <a th:each="photo,status : ${album.photos}" th:href="${photo.large}" href="/images/fulls/01.jpg" th:if="${status.index % 4 == 2}">
+          <img th:src="${photo.small}" src="/images/thumbs/01.jpg" alt="" />
+          <h3 th:text="${photo.title}">Lorem ipsum dolor sit amet1</h3>
+        </a>
+      </div>
+      <div style="margin-top: 10px;">
+        <a th:each="photo,status : ${album.photos}" th:href="${photo.large}" href="/images/fulls/01.jpg" th:if="${status.index % 4 == 3}">
           <img th:src="${photo.small}" src="/images/thumbs/01.jpg" alt="" />
           <h3 th:text="${photo.title}">Lorem ipsum dolor sit amet1</h3>
         </a>

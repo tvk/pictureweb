@@ -28,7 +28,9 @@ public class StoredPhotos {
   public File getOriginal(final String photoId) {
     final File location = new File(storageOriginals, StringUtils.substring(photoId, 0, 5) + File.separator);
     if (!location.isDirectory()) {
-      location.mkdirs();
+      if (!location.mkdirs()) {
+        throw new RuntimeException("Could not create directory " + location);
+      }
     }
     return new File(location, photoId + ".jpg");
   }
@@ -44,11 +46,19 @@ public class StoredPhotos {
   public File getLarge(final String photoId) {
     return getStoredFile(photoId, "large");
   }
+  
+  public boolean isComplete(final String photoId) {
+    return getLarge(photoId).isFile() && getMedium(photoId).isFile() && 
+           getSmall(photoId).isFile() && getOriginal(photoId).isFile();
+    
+  }
 
   private File getStoredFile(final String photoId, final String prefix) {
     final File location = new File(storageGenerated, StringUtils.substring(photoId, 0, 5) + File.separator);
     if (!location.isDirectory()) {
-      location.mkdirs();
+      if (!location.mkdirs()) {
+        throw new RuntimeException("Could not create directory " + location);
+      }
     }
     return new File(location, photoId + "@" + prefix + ".jpg");
   }
