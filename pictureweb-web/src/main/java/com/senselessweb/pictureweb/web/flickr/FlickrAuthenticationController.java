@@ -5,7 +5,6 @@ import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,8 +24,9 @@ public class FlickrAuthenticationController {
 
   @RequestMapping("init")
   public String getAuthUrl(final HttpServletRequest request) throws MalformedURLException {
-    final String callbackUrl = StringUtils.removeEnd(request.getRequestURL().toString(), "init") + "callback";
-    return authenticationService.generateAuthenticationUrl(new URL(callbackUrl)).orElse(null);
+    // TODO Obviously shitty solution!
+    return authenticationService.generateAuthenticationUrl(
+        new URL("https://www.senselessweb.com/flickr/auth/callback")).orElse(null);
   }
 
   @RequestMapping("callback")
