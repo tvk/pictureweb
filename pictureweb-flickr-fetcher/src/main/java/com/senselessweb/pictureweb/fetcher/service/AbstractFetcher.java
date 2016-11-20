@@ -19,7 +19,7 @@ public abstract class AbstractFetcher {
     this.flickrProvider = flickrProvider;
   }
 
-  @Scheduled(fixedRate = 30 * 1000)
+  @Scheduled(fixedRate = 30 * 60 * 1000 /* 30 minutes */)
   public void fetch() {
 
     final Optional<Flickr> flickr = flickrProvider.getIfAuthenticated();
