@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.FlickrException;
-import com.senselessweb.pictureweb.flickr.AuthenticatedFlickrProvider;
+import com.senselessweb.pictureweb.authentication.AuthenticatedFlickrProvider;
 
 public abstract class AbstractFetcher {
 

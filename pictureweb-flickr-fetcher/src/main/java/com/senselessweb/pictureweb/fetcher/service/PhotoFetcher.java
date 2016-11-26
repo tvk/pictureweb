@@ -1,9 +1,7 @@
 package com.senselessweb.pictureweb.fetcher.service;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,23 +13,20 @@ import com.flickr4java.flickr.photos.Exif;
 import com.flickr4java.flickr.photos.Photo;
 import com.flickr4java.flickr.photos.PhotoList;
 import com.google.common.collect.Sets;
-import com.senselessweb.pictureweb.datastore.domain.StoredExif;
-import com.senselessweb.pictureweb.datastore.domain.StoredGeoData;
-import com.senselessweb.pictureweb.datastore.domain.StoredPhoto;
-import com.senselessweb.pictureweb.datastore.domain.StoredTag;
-import com.senselessweb.pictureweb.datastore.repository.PhotoRepository;
-import com.senselessweb.pictureweb.flickr.AuthenticatedFlickrProvider;
+import com.senselessweb.pictureweb.authentication.AuthenticatedFlickrProvider;
+import com.senselessweb.pictureweb.datastore.client.PhotoService;
+import com.senselessweb.pictureweb.fetcher.transfer.TransferPhoto;
 
 @Service
 public class PhotoFetcher extends AbstractFetcher {
 
   private static final Log log = LogFactory.getLog(PhotoFetcher.class);
   private static final Set<String> extra = Sets.newHashSet("geo", "original_format", "last_update", "machine_tags");
-  private final PhotoRepository photoRepository;
+  private final PhotoService photoService;
 
-  public PhotoFetcher(final AuthenticatedFlickrProvider flickrProvider, final PhotoRepository photoRepository) {
+  public PhotoFetcher(final AuthenticatedFlickrProvider flickrProvider, final PhotoService photoService) {
     super(flickrProvider);
-    this.photoRepository = photoRepository;
+    this.photoService = photoService;
   }
 
   @Override
@@ -50,27 +45,13 @@ public class PhotoFetcher extends AbstractFetcher {
 
   private void storePhoto(final Flickr flickr, final Photo photo) {
     try {
-      final StoredPhoto stored = this.photoRepository.findOne(photo.getId());
+      final com.senselessweb.pictureweb.datastore.domain.Photo stored = this.photoService.get(photo.getId());
       if (stored == null || stored.getLastUpdate().before(photo.getLastUpdate())) {
         final Collection<Exif> exif = flickr.getPhotosInterface().getExif(photo.getId(), photo.getSecret());
-        photoRepository.save(toStoredPhoto(photo, exif));
+        photoService.save(new TransferPhoto(photo, exif));
       }
     } catch (final FlickrException e) {
       log.error("Could not store photo", e);
     }
   }
-
-  private StoredPhoto toStoredPhoto(final Photo photo, final Collection<Exif> exif) {
-
-    final List<StoredExif> storedExif = exif.stream().map(e -> new StoredExif(e.getTag(), e.getTagspace(), e.getRaw(), e.getClean()))
-        .collect(Collectors.toList());
-
-    final StoredGeoData geodata = photo.getGeoData() != null
-        ? new StoredGeoData(String.valueOf(photo.getGeoData().getLatitude()), String.valueOf(photo.getGeoData().getLongitude())) : null;
-
-    final List<StoredTag> tags = photo.getTags().stream().map(t -> new StoredTag(t.getId(), t.getValue(), t.getRaw())).collect(Collectors.toList());
-
-    return new StoredPhoto(photo.getId(), photo.getTitle(), photo.getDescription(), geodata, photo.getLastUpdate(), tags, storedExif);
-  }
-
 }

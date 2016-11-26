@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.senselessweb.pictureweb.web.service.AlbumService;
+import com.senselessweb.pictureweb.web.service.ClientAlbumService;
 
 @Configuration
 public class ExposedBeansConfiguration {
@@ -13,7 +13,7 @@ public class ExposedBeansConfiguration {
   public InternalResourceViewResolver internalResourceViewResolver() {
     final InternalResourceViewResolver bean = new InternalResourceViewResolver();
     bean.setExposedContextBeanNames(
-        AlbumService.beanName,
+        ClientAlbumService.beanName,
         WebConfiguration.googleMapsJsUrlBeanName);
     return bean;
   }

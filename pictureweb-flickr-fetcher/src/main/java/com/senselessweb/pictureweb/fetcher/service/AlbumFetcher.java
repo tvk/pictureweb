@@ -14,19 +14,19 @@ import com.flickr4java.flickr.photos.Photo;
 import com.flickr4java.flickr.photos.PhotoList;
 import com.flickr4java.flickr.photosets.Photoset;
 import com.flickr4java.flickr.photosets.Photosets;
-import com.senselessweb.pictureweb.datastore.domain.StoredAlbum;
-import com.senselessweb.pictureweb.datastore.repository.AlbumRepository;
-import com.senselessweb.pictureweb.flickr.AuthenticatedFlickrProvider;
+import com.senselessweb.pictureweb.authentication.AuthenticatedFlickrProvider;
+import com.senselessweb.pictureweb.datastore.client.AlbumService;
+import com.senselessweb.pictureweb.fetcher.transfer.TransferAlbum;
 
 @Service
 public class AlbumFetcher extends AbstractFetcher {
 
   private static final Log log = LogFactory.getLog(AlbumFetcher.class);
-  private final AlbumRepository albumRepository;
+  private final AlbumService albumService;
 
-  public AlbumFetcher(final AuthenticatedFlickrProvider flickrProvider, final AlbumRepository albumRepository) {
+  public AlbumFetcher(final AuthenticatedFlickrProvider flickrProvider, final AlbumService albumService) {
     super(flickrProvider);
-    this.albumRepository = albumRepository;
+    this.albumService = albumService;
   }
 
   @Override
@@ -51,9 +51,7 @@ public class AlbumFetcher extends AbstractFetcher {
   }
 
   private void storeAlbum(final Photoset photoset, final List<String> photos) {
-    final StoredAlbum album = new StoredAlbum(photoset.getId(), photoset.getTitle(),
-        photoset.getDescription(), photoset.getPrimaryPhoto().getId(), photos);
-    albumRepository.save(album);
+    albumService.save(new TransferAlbum(photoset, photos));
   }
 
 }

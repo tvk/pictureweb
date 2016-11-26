@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 import com.senselessweb.pictureweb.commons.storage.StoredPhotos;
-import com.senselessweb.pictureweb.datastore.domain.StoredPhoto;
+import com.senselessweb.pictureweb.datastore.domain.Photo;
 import com.senselessweb.pictureweb.web.domain.ClientPhoto;
 
 @Service
-public class PhotoConverter implements Function<StoredPhoto, ClientPhoto> {
+public class PhotoConverter implements Function<Photo, ClientPhoto> {
 
   private final StoredPhotos storedPhotos;
 
@@ -21,10 +21,13 @@ public class PhotoConverter implements Function<StoredPhoto, ClientPhoto> {
   }
 
   @Override
-  public ClientPhoto apply(final StoredPhoto picture) {
-    return picture == null ? null
-        : new ClientPhoto(picture.getTitle(), picture.getDescription(), picture.getGeo(), generateImageUri(storedPhotos.getLarge(picture.getId())),
-            generateImageUri(storedPhotos.getMedium(picture.getId())), generateImageUri(storedPhotos.getSmall(picture.getId())));
+  public ClientPhoto apply(final Photo picture) {
+    return picture == null ? null : new ClientPhoto(
+        picture.getTitle(), picture.getDescription(), picture.getGeo(), 
+            generateImageUri(storedPhotos.getLarge(picture.getId())),
+            generateImageUri(storedPhotos.getMedium(picture.getId())), 
+            generateImageUri(storedPhotos.getSmall(picture.getId())),
+            storedPhotos.isComplete(picture.getId()));
   }
 
   private String generateImageUri(final File file) {

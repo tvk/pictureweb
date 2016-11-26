@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
-import com.google.common.collect.Lists;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class StoredPhoto {
+public class StoredPhoto implements Photo {
 
   @Id
   private final String id;
@@ -15,11 +16,18 @@ public class StoredPhoto {
   private final String description;
   private final StoredGeoData geoData;
   private final Date lastUpdate;
-  private final List<StoredTag> tags;
-  private final List<StoredExif> exif;
+  private final List<? extends Tag> tags;
+  private final List<? extends Exif> exif;
 
-  public StoredPhoto(String id, String title, String description, StoredGeoData geoData, Date lastUpdate, final List<StoredTag> tags,
-      final List<StoredExif> exif) {
+  @JsonCreator
+  public StoredPhoto(
+      final @JsonProperty("id") String id, 
+      final @JsonProperty("title") String title, 
+      final @JsonProperty("description") String description, 
+      final @JsonProperty("geoData") StoredGeoData geoData, 
+      final @JsonProperty("lastUpdate") Date lastUpdate, 
+      final @JsonProperty("tags") List<StoredTag> tags,
+      final @JsonProperty("exif") List<StoredExif> exif) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -29,31 +37,38 @@ public class StoredPhoto {
     this.exif = exif;
   }
 
+  @Override
   public String getId() {
     return id;
   }
 
+  @Override
   public String getTitle() {
     return title;
   }
 
+  @Override
   public String getDescription() {
     return description;
   }
 
+  @Override
   public StoredGeoData getGeo() {
     return geoData;
   }
 
+  @Override
   public Date getLastUpdate() {
     return lastUpdate;
   }
 
-  public List<StoredTag> getTags() {
-    return tags;
+  @Override
+  public List<Tag> getTags() {
+    return (List<Tag>) tags;
   }
 
-  public List<StoredExif> getExif() {
-    return Lists.newArrayList(exif);
+  @Override
+  public List<Exif> getExif() {
+    return (List<Exif>) exif;
   }
 }

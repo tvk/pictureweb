@@ -4,23 +4,16 @@ import java.io.File;
 import java.net.URI;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StoredPhotos {
 
-  private static final Log log = LogFactory.getLog(StoredPhotos.class);
-  private final File storageBase;
+  private final File storageBase = new File("/var/local/pictureweb/images");
   private final File storageOriginals;
   private final File storageGenerated;
 
   public StoredPhotos() {
-    final File storage = new File(StringUtils.isBlank(System.getenv("pictureweb_storage_development")) ? 
-        "/data/storage/" : System.getenv("pictureweb_storage_development"));
-    log.debug("Storage folder determined to: " + storage);
-    this.storageBase = storage;
     this.storageOriginals = new File(storageBase, "originals");
     this.storageGenerated = new File(storageBase, "generated");
   }
