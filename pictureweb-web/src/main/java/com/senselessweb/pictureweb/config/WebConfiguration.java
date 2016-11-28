@@ -16,5 +16,4 @@ public class WebConfiguration {
     final String apiKey = ExtPreconditions.checkNotBlank(System.getenv(googleMapsApiKeyEnvVar));
     return "https://maps.googleapis.com/maps/api/js?key=" + apiKey + "&callback=initMap";
   }
-
 }
