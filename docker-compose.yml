@@ -1,0 +1,63 @@
+version: "2"
+
+networks:
+  global:
+    external:
+      name: global-network
+
+services:
+
+  # Service discovery
+  pictureweb-eureka:
+    image: pictureweb-eureka
+    ports:
+     - "8761:8761"
+    restart: always
+    networks:
+     - "global"
+     - "default"
+
+  # Datastore
+  pictureweb-mongo:
+    image: mongo
+    ports:
+     - "27017:27017"
+    restart: always
+    volumes:
+     - "${CONTAINERDATA}/pictureweb/db:/data/db"
+  pictureweb-datastore:
+    image: pictureweb-datastore
+    links:
+     - "pictureweb-mongo"
+     - "pictureweb-eureka"
+    restart: always
+  
+  # Services 
+  pictureweb-flickr-fetcher:
+    image: pictureweb-flickr-fetcher
+    links:
+     - "pictureweb-eureka"
+     - "pictureweb-datastore"
+    restart: always
+    environment:
+     - pictureweb_flickr_apikey=${PICTUREWEB_FLICKRAPIKEY}
+     - pictureweb_flickr_apisecret=${PICTUREWEB_FLICKRAPISECRET}
+
+  # Web
+  pictureweb-web:
+    image: pictureweb-web
+    ports:
+     - "8080:8080"
+    restart: always
+    links:
+     - "pictureweb-datastore"
+     - "pictureweb-eureka"
+    environment:
+     - pictureweb_googleMapsApiKey=${PICTUREWEB_GOOGLEMAPSAPIKEY}
+    networks:
+     - "global"
+     - "default"
+    volumes:
+     - "${CONTAINERDATA}/pictureweb/images:/var/local/pictureweb/images"
+
+  
