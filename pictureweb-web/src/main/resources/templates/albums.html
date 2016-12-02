@@ -3,23 +3,23 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="include/layout">
 <body>
 
-  <div layout:fragment="content" class="page-album">
+  <div layout:fragment="content" class="page-albums">
   
     <section class="thumbnails">
       <div>
-        <a th:each="album,status : ${albums}" th:href="${album.link}" th:if="${status.index % 3 == 0}">
+        <a th:each="album,status : ${albums}" th:href="${album.link}" th:if="${status.index % 3 == 0}" class="thumbnail">
           <img th:if="${album.primaryPhotoIsComplete}" th:src="${album.primaryPhoto.medium}" src="/images/thumbs/01.jpg" alt="" />
           <h3 th:text="${album.title}">Lorem ipsum dolor sit amet1</h3>
         </a>
       </div>
       <div>
-        <a th:each="album,status : ${albums}" th:href="${album.link}" th:if="${status.index % 3 == 1}">
+        <a th:each="album,status : ${albums}" th:href="${album.link}" th:if="${status.index % 3 == 1}" class="thumbnail">
           <img th:if="${album.primaryPhotoIsComplete}" th:src="${album.primaryPhoto.medium}" src="/images/thumbs/01.jpg" alt="" />
           <h3 th:text="${album.title}">Lorem ipsum dolor sit amet1</h3>
         </a>
       </div>
       <div>
-        <a th:each="album,status : ${albums}" th:href="${album.link}" th:if="${status.index % 3 == 2}">
+        <a th:each="album,status : ${albums}" th:href="${album.link}" th:if="${status.index % 3 == 2}" class="thumbnail">
           <img th:if="${album.primaryPhotoIsComplete}" th:src="${album.primaryPhoto.medium}" src="/images/thumbs/01.jpg" alt="" />
           <h3 th:text="${album.title}">Lorem ipsum dolor sit amet1</h3>
         </a>

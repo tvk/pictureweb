@@ -8,11 +8,14 @@
 	margin: 15px;
 }
 
+section.thumbnails a.thumbnail {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .page-home h1.title {
-	text-align: center;
 	font-size: 3em;
-	margin-left: 9px;
-	letter-spacing: 1em;
+	margin-left: 20px;
+	letter-spacing: 0.6em;
 } 
 
 .page-album h1.title {
