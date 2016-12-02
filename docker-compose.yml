@@ -42,7 +42,9 @@ services:
     environment:
      - pictureweb_flickr_apikey=${PICTUREWEB_FLICKRAPIKEY}
      - pictureweb_flickr_apisecret=${PICTUREWEB_FLICKRAPISECRET}
-
+    volumes:
+     - "${CONTAINERDATA}/pictureweb/images:/var/local/pictureweb/images"
+     
   # Web
   pictureweb-web:
     image: pictureweb-web
