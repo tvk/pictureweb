@@ -71,7 +71,7 @@
           <artifactId>docker-maven-plugin</artifactId>
           <version>0.4.11</version>
           <configuration>
-            <imageName>${project.artifactId}</imageName>
+            <imageName>tvvk/${project.artifactId}</imageName>
             <baseImage>frolvlad/alpine-oraclejdk8:slim</baseImage>
             <runs>sh -c 'touch /${project.build.finalName}.jar'</runs>
             <entryPoint>["java","-Djava.security.egd=file:/dev/./urandom","-jar","/${project.build.finalName}.jar"]</entryPoint>
