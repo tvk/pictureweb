@@ -4,6 +4,7 @@ import com.senselessweb.pictureweb.datastore.domain.GeoData;
 
 public class ClientPhoto {
 
+  private final String id; 
   private final String title;
   private final String description;
   private final GeoData geo;
@@ -12,8 +13,9 @@ public class ClientPhoto {
   private final String small;
   private final boolean isComplete;
 
-  public ClientPhoto(final String title, final String description, final GeoData geo,
+  public ClientPhoto(final String id, final String title, final String description, final GeoData geo,
       final String large, final String medium, final String small, final boolean isComplete) {
+    this.id = id;
     this.title = title;
     this.description = description;
     this.geo = geo;
@@ -21,6 +23,10 @@ public class ClientPhoto {
     this.medium = medium;
     this.small = small;
     this.isComplete = isComplete;
+  }
+  
+  public String getId() {
+    return id;
   }
 
   public String getTitle() {

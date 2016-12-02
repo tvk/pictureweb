@@ -22,7 +22,7 @@ public class PhotoConverter implements Function<Photo, ClientPhoto> {
 
   @Override
   public ClientPhoto apply(final Photo picture) {
-    return picture == null ? null : new ClientPhoto(
+    return picture == null ? null : new ClientPhoto(picture.getId(),
         picture.getTitle(), picture.getDescription(), picture.getGeo(), 
             generateImageUri(storedPhotos.getLarge(picture.getId())),
             generateImageUri(storedPhotos.getMedium(picture.getId())), 

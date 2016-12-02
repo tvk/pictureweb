@@ -6,6 +6,7 @@
 .mainMenu h1 {
 	float: left;
 	margin: 15px;
+	text-shadow: 2px 3px 6px #000;
 }
 
 section.thumbnails a.thumbnail {
@@ -16,6 +17,7 @@ section.thumbnails a.thumbnail {
 	font-size: 3em;
 	margin-left: 20px;
 	letter-spacing: 0.6em;
+	text-shadow: 2px 3px 6px #000;
 } 
 
 .page-album h1.title {
