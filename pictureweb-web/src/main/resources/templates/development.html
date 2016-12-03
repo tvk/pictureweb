@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="include/layout">
+<body>
+
+  <div layout:fragment="content" class="page-development">
+  
+    <h2 class="introduction">Some information about the build, deployment and infrastructure of this website:</h2>  
+  
+    <h1 class="title">Infrastructure</h1>
+
+    <div class="chapter">
+      <a href="https://letsencrypt.org/" target="_blank">
+        <h2>Let's Encrypt</h2>
+        <p>This great service provides this website with free ssl support!</p>
+      </a> 
+    </div>
+    
+    <div class="chapter">
+      <a href="https://eureka.senselessweb.com/" target="_blank">
+        <h2>Eureka</h2>
+        <p>Eureka is the service discovery tool. As this application is built in microservices we it needs a service
+        discovery tool where all microservices register themselves and can discover other microservices that they need 
+        to run.</p>
+      </a> 
+    </div>
+
+    <div class="chapter">
+      <a href="https://jenkins.senselessweb.com/" target="_blank">
+        <h2>Jenkins</h2>
+        <p>The well known build tool jenkins is used to build all microservices of this application after each commit.</p>
+      </a> 
+    </div>
+
+    <h1 class="title">Development</h1>
+
+    <div class="chapter">
+      <a href="https://github.com/tvk/pictureweb" target="_blank">
+        <h2>Github</h2>
+        <p>This project is hosted on github.</p>
+      </a> 
+    </div>
+
+  </div>
+
+</body>
+</html>
