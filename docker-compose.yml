@@ -9,7 +9,7 @@ services:
 
   # Service discovery
   pictureweb-eureka:
-    image: pictureweb-eureka
+    image: tvvk/pictureweb-eureka
     ports:
      - "8761:8761"
     restart: always
@@ -26,7 +26,7 @@ services:
     volumes:
      - "${CONTAINERDATA}/pictureweb/db:/data/db"
   pictureweb-datastore:
-    image: pictureweb-datastore
+    image: tvvk/pictureweb-datastore
     links:
      - "pictureweb-mongo"
      - "pictureweb-eureka"
@@ -34,7 +34,7 @@ services:
   
   # Services 
   pictureweb-flickr-fetcher:
-    image: pictureweb-flickr-fetcher
+    image: tvvk/pictureweb-flickr-fetcher
     links:
      - "pictureweb-eureka"
      - "pictureweb-datastore"
@@ -47,7 +47,7 @@ services:
      
   # Web
   pictureweb-web:
-    image: pictureweb-web
+    image: tvvk/pictureweb-web
     ports:
      - "8080:8080"
     restart: always
