@@ -9,6 +9,11 @@
 	text-shadow: 2px 3px 6px #000;
 }
 
+.footer {
+	font-weight: bold;
+	margin: 25px;
+}
+
 section.thumbnails a.thumbnail {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -20,11 +25,31 @@ section.thumbnails a.thumbnail {
 	text-shadow: 2px 3px 6px #000;
 } 
 
+.page-home div.right,
+.page-home div.left {
+	margin: 2.5em;
+	margin-left: 25px;
+	width: 25em;
+	float: left;
+}
+
+.page-home div.right {
+	margin-left: 6em;
+}
+
+.page-home div.left p {
+	font-weight: bold;
+}
+
+.page-home div.right .thumbnails {
+	margin: 0;
+}
+
 .page-album h1.title {
 	text-align: center;
 	font-size: 3em;
 	margin: 0;
-} 
+}
 
 .page-map .infoWindow h2 {
 	color: #111B34;

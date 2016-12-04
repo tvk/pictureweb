@@ -21,13 +21,13 @@ public class PhotoConverter implements Function<Photo, ClientPhoto> {
   }
 
   @Override
-  public ClientPhoto apply(final Photo picture) {
-    return picture == null ? null : new ClientPhoto(picture.getId(),
-        picture.getTitle(), picture.getDescription(), picture.getGeo(), 
-            generateImageUri(storedPhotos.getLarge(picture.getId())),
-            generateImageUri(storedPhotos.getMedium(picture.getId())), 
-            generateImageUri(storedPhotos.getSmall(picture.getId())),
-            storedPhotos.isComplete(picture.getId()));
+  public ClientPhoto apply(final Photo photo) {
+    return photo == null ? null : new ClientPhoto(photo.getId(),
+        photo.getTitle(), photo.getDescription(), photo.getGeo(), 
+            generateImageUri(storedPhotos.getLarge(photo.getId())),
+            generateImageUri(storedPhotos.getMedium(photo.getId())), 
+            generateImageUri(storedPhotos.getSmall(photo.getId())),
+            storedPhotos.isComplete(photo.getId()));
   }
 
   private String generateImageUri(final File file) {

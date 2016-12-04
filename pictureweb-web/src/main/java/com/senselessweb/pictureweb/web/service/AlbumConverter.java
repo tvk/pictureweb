@@ -21,7 +21,7 @@ import com.senselessweb.pictureweb.web.domain.ClientPhoto;
 @Service
 public class AlbumConverter implements Function<Album, ClientAlbum> {
   
-  private static final Set<String> hiddenPictures = Sets.newHashSet(
+  static final Set<String> hiddenPictures = Sets.newHashSet(
       "27216894106", "26645517503", "27216184746", "26644592983", "26643338064", "27216640296", "27250678725", "26645238493",
       "26757902023", "27155670422", "27218929756", "27183274531", "26977384480", "27183339641", "27297721181",
       "27217939366", "27182319741", "26645223934", "26645648844", "27218706206",
@@ -77,9 +77,8 @@ public class AlbumConverter implements Function<Album, ClientAlbum> {
             .collect(Collectors.toList());
       }
     };
-    
   }
-
+  
   private ClientGeoData findGeoData(final Album album) {
     if (album.getPrimaryPhotoId() != null) {
       final Photo primaryPhoto = photoService.get(album.getPrimaryPhotoId());
@@ -91,7 +90,7 @@ public class AlbumConverter implements Function<Album, ClientAlbum> {
     return null;
   }
 
-  private ClientPhoto convertPicture(final String photoId) {
+  ClientPhoto convertPicture(final String photoId) {
     return StringUtils.isBlank(photoId) ? null : photoConverter.apply(photoService.get(photoId));
   }
 }

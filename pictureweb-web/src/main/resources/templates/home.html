@@ -7,6 +7,25 @@
 
     <h1 class="title">senselesweb.com</h1>
     
+    <div class="left">
+      <h2>Hey there!</h2>
+      <p>.. and welcome to this new (and unfinished) photopage!</p>
+      <p>This site is designed as a online photo album, but it is also a 
+      showcase and testground for some technologies I want to try out.</p>
+      <p>So feel free to look around, but don't wonder if some things do 
+      not yet work perfectly. ;)</p> 
+    </div>
+    
+    <div class="right">
+      <h2>Random photo of the moment:</h2>
+      
+      <section class="thumbnails lightbox">
+        <a th:href="${photo.large}" href="/images/fulls/01.jpg" class="thumbnail" th:attr="data-photoid=${photo.id}">
+          <img th:src="${photo.medium}" src="/images/thumbs/01.jpg" alt="" />
+        </a>
+      </section>
+            
+    </div>
 
   </div>
 

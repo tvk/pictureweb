@@ -18,4 +18,5 @@ public interface Photo {
   public List<Tag> getTags();
 
   public List<Exif> getExif();
+  
 }

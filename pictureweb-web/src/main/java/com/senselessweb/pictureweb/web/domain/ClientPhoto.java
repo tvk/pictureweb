@@ -1,5 +1,7 @@
 package com.senselessweb.pictureweb.web.domain;
 
+import org.springframework.util.StringUtils;
+
 import com.senselessweb.pictureweb.datastore.domain.GeoData;
 
 public class ClientPhoto {
@@ -30,7 +32,7 @@ public class ClientPhoto {
   }
 
   public String getTitle() {
-    return title;
+    return StringUtils.startsWithIgnoreCase(title, "DSC") ? "" : title;
   }
 
   public String getDescription() {
