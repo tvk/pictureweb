@@ -10,7 +10,7 @@
     <section class="thumbnails lightbox">
       <div style="margin-top: 10px;">
         <a th:each="photo,status : ${album.photos}" th:href="${photo.large}" href="/images/fulls/01.jpg" th:if="${status.index % 4 == 0}" 
-            class="thumbnail" data-photoid="${photo.id}">
+            class="thumbnail" th:attr="data-photoid=${photo.id}">
           <img th:src="${photo.small}" src="/images/thumbs/01.jpg" alt="" />
           <h3 th:text="${photo.title}">Lorem ipsum dolor sit amet1</h3>
         </a>
